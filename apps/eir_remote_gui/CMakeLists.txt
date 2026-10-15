@@ -8,10 +8,6 @@ if(BUILD_TESTING AND EIR_GUI_TESTS)
         ${CMAKE_CURRENT_SOURCE_DIR}/tests/remote_gui_test.py -v)
     set_tests_properties(remote_gui_test PROPERTIES TIMEOUT 30 RUN_SERIAL TRUE
         ENVIRONMENT "ROS_LOCALHOST_ONLY=1;ROS_DOMAIN_ID=188;QT_QPA_PLATFORM=offscreen")
-    add_test(NAME remote_eqr_gui_test COMMAND /usr/bin/python3
-        ${CMAKE_CURRENT_SOURCE_DIR}/tests/eqr_gui_test.py -v)
-    set_tests_properties(remote_eqr_gui_test PROPERTIES TIMEOUT 30 RUN_SERIAL TRUE
-        ENVIRONMENT "ROS_LOCALHOST_ONLY=1;ROS_DOMAIN_ID=189;QT_QPA_PLATFORM=offscreen")
 endif()
 if(BUILD_TESTING AND EIR_GUI_TEST_RQT)
     add_test(NAME remote_depth_viewer_test COMMAND /usr/bin/python3

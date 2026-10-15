@@ -20,6 +20,7 @@ from rclpy.qos import QoSProfile, qos_profile_sensor_data
 from rclpy.task import Future
 from PyQt5 import QtCore, QtWidgets
 from PyQt5.QtTest import QTest
+import ehr_message.msg as ehr_messages
 from ehr_message.msg import LocoVelocity
 from ehr_message.srv import LocomotionModeSwitch, MotionCmd
 import yaml
@@ -29,6 +30,10 @@ sys.path.insert(0, str(ROOT))
 spec = importlib.util.spec_from_file_location("remote_gui", ROOT / "remote_gui.py")
 gui = importlib.util.module_from_spec(spec)
 spec.loader.exec_module(gui)
+
+
+HAS_CSV_TOOLS = importlib.util.find_spec("motion_stream_tools") is not None
+HAS_MOTION_FEEDBACK = all(hasattr(ehr_messages, name) for name in ("MotionState", "MotionExeStatus"))
 
 
 class RemoteGuiTest(unittest.TestCase):
@@ -122,6 +127,7 @@ class RemoteGuiTest(unittest.TestCase):
         self.pump_until(lambda: any(msg.linear_vx > 0.3 for msg in self.messages))
         self.assertTrue(self.window.sending)
 
+    @unittest.skipUnless(HAS_CSV_TOOLS and HAS_MOTION_FEEDBACK, "requires optional CSV tools and full motion feedback messages")
     def test_direct_file_playback_does_not_change_numbered_actions(self):
         from ehr_message.msg import MotionState, MotionExeStatus
         from motion_stream_tools.csv_codec import MotionFrame, write_motion_csv
@@ -173,6 +179,7 @@ class RemoteGuiTest(unittest.TestCase):
             self.server.destroy_subscription(subscription)
             self.server.destroy_publisher(status_pub)
 
+    @unittest.skipUnless(HAS_CSV_TOOLS, "requires optional motion_stream_tools")
     def test_raw_csv_uses_existing_converter(self):
         import csv
         import numpy as np
