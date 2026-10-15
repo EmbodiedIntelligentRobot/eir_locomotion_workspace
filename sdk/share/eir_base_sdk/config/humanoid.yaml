@@ -1,0 +1,171 @@
+humanoid_hardware_node:
+  # 选择 Versions 下的机器人配置，名称必须与版本节点完全一致：
+  #   aiq11-sport: AIQ11 运控版，23 个活跃电机
+  #   aiq11-pro:   AIQ11 交互版，32 个活跃电机
+  #   ehr21-half:  EHR21 半身版，19 个活跃电机
+  RobotVersion: aiq11-sport
+  Core: 11  # CPU亲和核：RK主机配置为4，Core主机配置为11
+
+  Versions:
+    aiq11-sport:
+      TotalMotorCount: 32   # 固定物理槽位数，必须与 TOTAL_MOTOR_COUNT 一致
+      ActiveMotorCount: 23  # type 非 NO_Type 的电机数量
+
+      JointMapping:
+        LeftArm:
+          0: {name: "la_1", can_id: 1, dir: 1, type: ENCOS_P2_3025H_6408, gear_ratio: 1.0, offset: -0.0}
+          1: {name: "la_2", can_id: 2, dir: -1, type: ENCOS_P2_36H_4310, gear_ratio: 1.0, offset: 0.0}
+          2: {name: "la_3", can_id: 3, dir: -1, type: ENCOS_P2_36H_4310, gear_ratio: 1.0, offset: 0.0}
+          3: {name: "la_4", can_id: 4, dir: 1, type: ENCOS_P2_36H_4310, gear_ratio: 1.0, offset: -0.0}
+          4: {name: "la_5", can_id: 5, dir: 1, type: NO_Type, gear_ratio: 1.0, offset: 0.0}
+          5: {name: "la_6", can_id: 6, dir: 1, type: NO_Type, gear_ratio: 1.0, offset: 0.0}
+          6: {name: "la_7", can_id: 7, dir: 1, type: NO_Type, gear_ratio: 1.0, offset: 0.0}
+        RightArm:
+          7: {name: "ra_1", can_id: 1, dir: -1, type: ENCOS_P2_3025H_6408, gear_ratio: 1.0, offset: 0.0}
+          8: {name: "ra_2", can_id: 2, dir: -1, type: ENCOS_P2_36H_4310, gear_ratio: 1.0, offset: 0.0}
+          9: {name: "ra_3", can_id: 3, dir: -1, type: ENCOS_P2_36H_4310, gear_ratio: 1.0, offset: 0.0}
+          10: {name: "ra_4", can_id: 4, dir: -1, type: ENCOS_P2_36H_4310, gear_ratio: 1.0, offset: 0.0}
+          11: {name: "ra_5", can_id: 5, dir: 1, type: NO_Type, gear_ratio: 1.0, offset: 0.0}
+          12: {name: "ra_6", can_id: 6, dir: 1, type: NO_Type, gear_ratio: 1.0, offset: 0.0}
+          13: {name: "ra_7", can_id: 7, dir: 1, type: NO_Type, gear_ratio: 1.0, offset: 0.0}
+        Waist:
+          14: {name: "waist_1", can_id: 1, dir: -1, type: ENCOS_P2_36_4315, gear_ratio: 0.75, offset: 0.0}
+          15: {name: "waist_2", can_id: 2, dir: 1, type: ENCOS_P2_36_4315, gear_ratio: 1.0, offset: 0.0}
+          16: {name: "waist_3", can_id: 3, dir: 1, type: ENCOS_P2_36_4315, gear_ratio: 1.0, offset: -0.0}
+        LeftLeg1:
+          17: {name: "ll1_1", can_id: 1, dir: 1, type: ENCOS_P1_18H_8116, gear_ratio: 1.0, offset: -0.0}
+          18: {name: "ll1_2", can_id: 2, dir: 1, type: ENCOS_P1_18H_8116, gear_ratio: 1.0, offset: -0.0}
+          19: {name: "ll1_3", can_id: 3, dir: -1, type: ENCOS_P1_18H_8112, gear_ratio: 1.0, offset: 0.0}
+        LeftLeg2:
+          20: {name: "ll2_4", can_id: 4, dir: -1, type: ENCOS_P1_18H_8116, gear_ratio: 0.5, offset: -0.0}
+          21: {name: "ll2_5", can_id: 5, dir: 1, type: ENCOS_P2_36_4315, gear_ratio: 1.0, offset: -0.0}
+          22: {name: "ll2_6", can_id: 6, dir: 1, type: ENCOS_P2_36_4315, gear_ratio: 1.0, offset: 0.0}
+        RightLeg1:
+          23: {name: "rl1_1", can_id: 1, dir: -1, type: ENCOS_P1_18H_8116, gear_ratio: 1.0, offset: 0.0}
+          24: {name: "rl1_2", can_id: 2, dir: 1, type: ENCOS_P1_18H_8116, gear_ratio: 1.0, offset: -0.0}
+          25: {name: "rl1_3", can_id: 3, dir: -1, type: ENCOS_P1_18H_8112, gear_ratio: 1.0, offset: 0.0}
+        RightLeg2:
+          26: {name: "rl2_4", can_id: 4, dir: 1, type: ENCOS_P1_18H_8116, gear_ratio: 0.5, offset: 0.0}
+          27: {name: "rl2_5", can_id: 5, dir: 1, type: ENCOS_P2_36_4315, gear_ratio: 1.0, offset: 0.0}
+          28: {name: "rl2_6", can_id: 6, dir: 1, type: ENCOS_P2_36_4315, gear_ratio: 1.0, offset: -0.0}
+        Neck:
+          29: {name: "n_1", can_id: 1, dir: 1, type: NO_Type, gear_ratio: 1.0, offset: 0.0}
+          30: {name: "n_2", can_id: 2, dir: 1, type: NO_Type, gear_ratio: 1.0, offset: 0.0}
+          31: {name: "n_3", can_id: 3, dir: 1, type: NO_Type, gear_ratio: 1.0, offset: 0.0}
+
+      EncoderMapping:
+        Waist:
+          0: {name: "waist_p", id: 0, dir: -1}
+          1: {name: "wasit_r", id: 1, dir: 1}
+
+    aiq11-pro:
+      TotalMotorCount: 32   # 固定物理槽位数，必须与 TOTAL_MOTOR_COUNT 一致
+      ActiveMotorCount: 32  # type 非 NO_Type 的电机数量
+
+      JointMapping:
+        LeftArm:
+          0: {name: "la_1", can_id: 1, dir: 1, type: ENCOS_P2_3025H_6408, gear_ratio: 1.0, offset: 0.0}
+          1: {name: "la_2", can_id: 2, dir: -1, type: ENCOS_P2_36H_4310, gear_ratio: 1.0, offset: 0.0}
+          2: {name: "la_3", can_id: 3, dir: -1, type: ENCOS_P2_36H_4310, gear_ratio: 1.0, offset: 0.0}
+          3: {name: "la_4", can_id: 4, dir: 1, type: ENCOS_P2_36H_4310, gear_ratio: 1.0, offset: 0.0}
+          4: {name: "la_5", can_id: 5, dir: -1, type: ENCOS_P2_36H_4310, gear_ratio: 1.0, offset: 0.0}
+          5: {name: "la_6", can_id: 6, dir: -1, type: ENCOS_P2_36_2806, gear_ratio: 1.0, offset: 0.0}
+          6: {name: "la_7", can_id: 7, dir: -1, type: ENCOS_P2_36_2806, gear_ratio: 1.0, offset: 0.0}
+        RightArm:
+          7: {name: "ra_1", can_id: 1, dir: -1, type: ENCOS_P2_3025H_6408, gear_ratio: 1.0, offset: 0.0}
+          8: {name: "ra_2", can_id: 2, dir: -1, type: ENCOS_P2_36H_4310, gear_ratio: 1.0, offset: 0.0}
+          9: {name: "ra_3", can_id: 3, dir: -1, type: ENCOS_P2_36H_4310, gear_ratio: 1.0, offset: 0.0}
+          10: {name: "ra_4", can_id: 4, dir: -1, type: ENCOS_P2_36H_4310, gear_ratio: 1.0, offset: 0.0}
+          11: {name: "ra_5", can_id: 5, dir: -1, type: ENCOS_P2_36H_4310, gear_ratio: 1.0, offset: 0.0}
+          12: {name: "ra_6", can_id: 6, dir: -1, type: ENCOS_P2_36_2806, gear_ratio: 1.0, offset: 0.0}
+          13: {name: "ra_7", can_id: 7, dir: -1, type: ENCOS_P2_36_2806, gear_ratio: 1.0, offset: 0.0}
+        Waist:
+          14: {name: "waist_1", can_id: 1, dir: -1, type: ENCOS_P2_36_4315, gear_ratio: 0.75, offset: 0.0}
+          15: {name: "waist_2", can_id: 2, dir: 1, type: ENCOS_P2_36_4315, gear_ratio: 1.0, offset: 0.0}
+          16: {name: "waist_3", can_id: 3, dir: 1, type: ENCOS_P2_36_4315, gear_ratio: 1.0, offset: 0.0}
+        LeftLeg1:
+          17: {name: "ll1_1", can_id: 1, dir: 1, type: ENCOS_P1_18H_8116, gear_ratio: 1.0, offset: 0.0}
+          18: {name: "ll1_2", can_id: 2, dir: 1, type: ENCOS_P1_18H_8116, gear_ratio: 1.0, offset: 0.0}
+          19: {name: "ll1_3", can_id: 3, dir: -1, type: ENCOS_P1_18H_8112, gear_ratio: 1.0, offset: 0.0}
+        LeftLeg2:
+          20: {name: "ll2_4", can_id: 4, dir: -1, type: ENCOS_P1_18H_8116, gear_ratio: 0.5, offset: 0.0}
+          21: {name: "ll2_5", can_id: 5, dir: 1, type: ENCOS_P2_36_4315, gear_ratio: 1.0, offset: 0.0}
+          22: {name: "ll2_6", can_id: 6, dir: 1, type: ENCOS_P2_36_4315, gear_ratio: 1.0, offset: 0.0}
+        RightLeg1:
+          23: {name: "rl1_1", can_id: 1, dir: -1, type: ENCOS_P1_18H_8116, gear_ratio: 1.0, offset: 0.0}
+          24: {name: "rl1_2", can_id: 2, dir: 1, type: ENCOS_P1_18H_8116, gear_ratio: 1.0, offset: 0.0}
+          25: {name: "rl1_3", can_id: 3, dir: -1, type: ENCOS_P1_18H_8112, gear_ratio: 1.0, offset: 0.0}
+        RightLeg2:
+          26: {name: "rl2_4", can_id: 4, dir: 1, type: ENCOS_P1_18H_8116, gear_ratio: 0.5, offset: 0.0}
+          27: {name: "rl2_5", can_id: 5, dir: 1, type: ENCOS_P2_36_4315, gear_ratio: 1.0, offset: 0.0}
+          28: {name: "rl2_6", can_id: 6, dir: 1, type: ENCOS_P2_36_4315, gear_ratio: 1.0, offset: 0.0}
+        Neck:
+          29: {name: "n_1", can_id: 1, dir: 1, type: ENCOS_P2_36_2806, gear_ratio: 1.0, offset: 0.0}
+          30: {name: "n_2", can_id: 2, dir: 1, type: ENCOS_P2_36_2806, gear_ratio: 1.0, offset: 0.0}
+          31: {name: "n_3", can_id: 3, dir: -1, type: ENCOS_P2_36_2806, gear_ratio: 1.0, offset: 0.0}
+
+      EncoderMapping:
+        Waist:
+          0: {name: "waist_p", id: 0, dir: -1}
+          1: {name: "wasit_r", id: 1, dir: 1}
+
+    ehr21-half:
+      TotalMotorCount: 32   # 固定物理槽位数，必须与 TOTAL_MOTOR_COUNT 一致
+      ActiveMotorCount: 19  # type 非 NO_Type 的电机数量；NO_Type 仅保留槽位
+
+      JointMapping:
+        LeftArm:
+          0: {name: "la_1", can_id: 1, dir: 1, type: ENCOS_P2_3025H_6408, gear_ratio: 1.0, offset: 0.0}
+          1: {name: "la_2", can_id: 2, dir: -1, type: ENCOS_P2_36H_4310, gear_ratio: 1.0, offset: 0.0}
+          2: {name: "la_3", can_id: 3, dir: -1, type: ENCOS_P2_36H_4310, gear_ratio: 1.0, offset: 0.0}
+          3: {name: "la_4", can_id: 4, dir: 1, type: ENCOS_P2_36H_4310, gear_ratio: 1.0, offset: 0.0}
+          4: {name: "la_5", can_id: 5, dir: -1, type: ENCOS_P2_36H_4310, gear_ratio: 1.0, offset: 0.0}
+          5: {name: "la_6", can_id: 6, dir: 1, type: ENCOS_P2_36_2806, gear_ratio: 1.0, offset: 0.0}
+          6: {name: "la_7", can_id: 7, dir: 1, type: ENCOS_P2_36_2806, gear_ratio: 1.0, offset: 0.0}
+        RightArm:
+          7: {name: "ra_1", can_id: 1, dir: -1, type: ENCOS_P2_3025H_6408, gear_ratio: 1.0, offset: 0.0}
+          8: {name: "ra_2", can_id: 2, dir: -1, type: ENCOS_P2_36H_4310, gear_ratio: 1.0, offset: 0.0}
+          9: {name: "ra_3", can_id: 3, dir: -1, type: ENCOS_P2_36H_4310, gear_ratio: 1.0, offset: 0.0}
+          10: {name: "ra_4", can_id: 4, dir: -1, type: ENCOS_P2_36H_4310, gear_ratio: 1.0, offset: 0.0}
+          11: {name: "ra_5", can_id: 5, dir: -1, type: ENCOS_P2_36H_4310, gear_ratio: 1.0, offset: 0.0}
+          12: {name: "ra_6", can_id: 6, dir: 1, type: ENCOS_P2_36_2806, gear_ratio: 1.0, offset: 0.0}
+          13: {name: "ra_7", can_id: 7, dir: 1, type: ENCOS_P2_36_2806, gear_ratio: 1.0, offset: 0.0}
+        Waist:
+          14: {name: "waist_1", can_id: 1, dir: -1, type: ENCOS_P2_36_4315, gear_ratio: 0.75, offset: 0.0}
+          15: {name: "waist_2", can_id: 2, dir: 1, type: ENCOS_P2_36_4315, gear_ratio: 1.0, offset: 0.0}
+          16: {name: "waist_3", can_id: 3, dir: 1, type: ENCOS_P2_36_4315, gear_ratio: 1.0, offset: 0.0}
+        LeftLeg1:
+          17: {name: "ll1_1", can_id: 1, dir: 1, type: NO_Type, gear_ratio: 1.0, offset: 0.0}
+          18: {name: "ll1_2", can_id: 2, dir: 1, type: NO_Type, gear_ratio: 1.0, offset: 0.0}
+          19: {name: "ll1_3", can_id: 3, dir: -1, type: NO_Type, gear_ratio: 1.0, offset: 0.0}
+        LeftLeg2:
+          20: {name: "ll2_4", can_id: 4, dir: -1, type: NO_Type, gear_ratio: 0.5, offset: 0.0}
+          21: {name: "ll2_5", can_id: 5, dir: 1, type: NO_Type, gear_ratio: 1.0, offset: 0.0}
+          22: {name: "ll2_6", can_id: 6, dir: 1, type: NO_Type, gear_ratio: 1.0, offset: 0.0}
+        RightLeg1:
+          23: {name: "rl1_1", can_id: 1, dir: -1, type: NO_Type, gear_ratio: 1.0, offset: 0.0}
+          24: {name: "rl1_2", can_id: 2, dir: 1, type: NO_Type, gear_ratio: 1.0, offset: 0.0}
+          25: {name: "rl1_3", can_id: 3, dir: -1, type: NO_Type, gear_ratio: 1.0, offset: 0.0}
+        RightLeg2:
+          26: {name: "rl2_4", can_id: 4, dir: 1, type: NO_Type, gear_ratio: 0.5, offset: 0.0}
+          27: {name: "rl2_5", can_id: 5, dir: 1, type: NO_Type, gear_ratio: 1.0, offset: 0.0}
+          28: {name: "rl2_6", can_id: 6, dir: 1, type: NO_Type, gear_ratio: 1.0, offset: 0.0}
+        Neck:
+          29: {name: "n_1", can_id: 1, dir: 1, type: ENCOS_P2_36_2806, gear_ratio: 1.0, offset: 0.0}
+          30: {name: "n_2", can_id: 2, dir: 1, type: ENCOS_P2_36_2806, gear_ratio: 1.0, offset: 0.0}
+          31: {name: "n_3", can_id: 3, dir: -1, type: NO_Type, gear_ratio: 1.0, offset: 0.0}
+
+      # 机器人级末端类型，左右末端使用同一种协议：
+      #   LEGACY     - 原有 RS485 末端，无需配置 Left/Right CAN 参数
+      #   EIRGRIPPER - CAN 末端，需配置下方 Left/Right 参数
+      #   NO_TYPE    - 不使用末端执行器
+      # 整个 EndEffectorMapping 缺省时按 LEGACY 处理。
+      EndEffectorMapping:
+        type: EIRGRIPPER
+        Left: {name: "left_gripper", motor_type: ENCOS_P2_36_2806, can_id: 8, dir: 1, gear_ratio: 1.0, offset: 0.0, max_output_torque: 3.0}
+        Right: {name: "right_gripper", motor_type: ENCOS_P2_36_2806, can_id: 8, dir: 1, gear_ratio: 1.0, offset: 0.0, max_output_torque: 3.0}
+
+      EncoderMapping:
+        Waist:
+          0: {name: "waist_p", id: 0, dir: -1}
+          1: {name: "wasit_r", id: 1, dir: 1}

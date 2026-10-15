@@ -1,0 +1,11 @@
+{
+  "repository": "ehr_description",
+  "commit": "031fb59c7239960d7ba265c857a4f25554b93eca",
+  "source": "aiq11_description/urdf/aiq11.xml",
+  "mesh_source": "aiq11_description/meshes",
+  "model_name": "aiq11",
+  "changes": "None. Copy MJCF and only its referenced meshes.",
+  "engine": "MuJoCo 3.14.0",
+  "validation": "mj_loadXML only, no mj_step, no simulation or GUI.",
+  "sha256sum_file": "model/SHA256SUMS"
+}

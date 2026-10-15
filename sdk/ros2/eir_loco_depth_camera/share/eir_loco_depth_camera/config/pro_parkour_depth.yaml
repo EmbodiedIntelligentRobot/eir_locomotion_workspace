@@ -1,0 +1,91 @@
+# Current combined CNN + actor, 5232 -> 23. No GRU.
+# Source FOV/mount calibration remains to be verified before hardware motion.
+# Calibrated CameraInfo -> 64x36 policy rays; 64x40 diagnostic display.
+depth_image_processor:
+  ros__parameters:
+    input_topic: /gemini336_a/depth/image_raw
+    camera_info_topic: /gemini336_a/depth/camera_info
+    processing_hz: 50.0
+    max_input_age_ms: 100.0
+    hole_fill_radius_pixels: 4.0
+    output_topic: /gemini336_a/depth/image_processed
+    full_output_topic: /gemini336_a/depth/image_processed_full
+    publish_full: true
+    frame_id: gemini336_a_depth_optical_frame
+    input_width: 640
+    input_height: 480
+    source_crop_enabled: false
+    source_crop_top: 40
+    source_crop_bottom: 40
+    source_crop_left: 0
+    source_crop_right: 0
+    resize_width: 64
+    resize_height: 36
+    full_width: 64
+    full_height: 40
+    depth_scale: 0.001
+    min_distance_m: 0.0
+    max_distance_m: 2.5
+    invalid_fill_m: 2.5
+    crop_enabled: true
+    crop_top: 18
+    crop_bottom: 0
+    crop_left: 16
+    crop_right: 16
+    gaussian_kernel_size: 3
+    gaussian_sigma: 1.0
+    invalid_blur_mode: nearest_gaussian
+    preprocessing_version: parkour_depth_v2
+    minimum_valid_fraction: 0.05
+depth_stack_publisher:
+  ros__parameters:
+    input_topic: /gemini336_a/depth/image_processed
+    output_topic: /perception/depth_stack
+    frame_id: gemini336_a_depth_optical_frame
+    depth_semantics: image_plane
+    preprocessing_version: parkour_depth_v2
+    input_width: 32
+    input_height: 18
+    output_width: 32
+    output_height: 18
+    depth_scale: 0.001
+    min_distance_m: 0.0
+    max_distance_m: 2.5
+    invalid_fill_m: 2.5
+    crop_enabled: false
+    crop_top: 22
+    crop_bottom: 0
+    crop_left: 16
+    crop_right: 16
+    gaussian_kernel_size: 3
+    gaussian_sigma: 1.0
+    invalid_blur_mode: masked
+    frame_count: 8
+    history_length: 37
+    history_skip: 5
+    input_is_normalized: true
+    max_input_age_ms: 100.0
+    max_future_skew_ms: 0.0
+    max_history_gap_ms: 40.0
+depth_image_viewer:
+  ros__parameters:
+    topic: /gemini336_a/depth/image_raw
+    show_window: true
+    display_scale: 10
+    depth_scale: 0.001
+    min_distance_m: 0.0
+    max_distance_m: 2.5
+    invalid_fill_m: 2.5
+    max_age_ms: 100.0
+    save_dir: depth_frames
+    save_every_n: 0
+    publish_normalized: false
+    normalized_topic: /perception/depth/image_normalized
+    crop_enabled: false
+    crop_top: 22
+    crop_bottom: 0
+    crop_left: 16
+    crop_right: 16
+    gaussian_kernel_size: 3
+    gaussian_sigma: 1.0
+    invalid_blur_mode: masked

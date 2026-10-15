@@ -1,0 +1,8 @@
+[submodule "src/eir_loco_runtime"]
+    path = src/eir_loco_runtime
+    url = https://github.com/EmbodiedIntelligentRobot/eir_loco_runtime.git
+    branch = publish
+[submodule "apps/eir_ctrl_demo_aiq11"]
+    path = apps/eir_ctrl_demo_aiq11
+    url = https://github.com/EmbodiedIntelligentRobot/eir_ctrl_demo_aiq11.git
+    branch = publish

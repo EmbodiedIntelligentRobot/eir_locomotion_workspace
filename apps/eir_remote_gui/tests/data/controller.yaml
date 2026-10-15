@@ -1,0 +1,14 @@
+remote:
+  source: external
+  velocity_topic: /loco_velocity_cmd
+  mode_service: /mode_switch
+timing:
+  velocity_timeout: 0.2
+policies:
+  28: velocity.yaml
+  30: velocity.yaml
+  31: velocity.yaml
+  32: velocity.yaml
+  33: velocity.yaml
+  34: velocity.yaml
+  41: velocity.yaml

@@ -1,0 +1,29 @@
+# GUI-only settings; controller limits remain authoritative.
+publish_hz: 30.0
+keep_time: 0.2
+query_period: 0.25
+status_timeout: 0.75
+service_timeout: 1.0
+velocity_step: 0.05
+auto_center: false # Keep values on release; safety stops always clear all axes.
+velocity_deadband: 0.05 # Fraction of each axis limit, applied independently in both directions.
+zero_stop_seconds: 5.0 # Publish zeros this long after returning to the deadband, then stop.
+open_depth_viewer: true # Open rqt only after confirmed perception mode.
+depth_image_topic: "" # Empty: use controller debug.depth_image_topic.
+external_depth_image_topic: /gemini336_a/depth/image_processed # External camera fallback.
+xbox_enabled: true # Built-in Linux Xbox/F710 reader; disable when using an external driver.
+remote_device_globs: ["/dev/input/js*"] # Linux joystick devices; first supported device is selected.
+remote_publisher_nodes: [/joy_stick_publisher, /eir_ctrl_demo_aiq11] # Known drivers may stay alive after unplug.
+motion_cmd_service: /motion_cmd # ehr_message/srv/MotionCmd; must match the action server.
+offline_actions: # Explicit service commands, not locomotion mode numbers.
+  - {name: JOF11, cmd: 11}
+  - {name: JOF12, cmd: 12}
+  - {name: JOF13, cmd: 13}
+  - {name: JOF14, cmd: 14}
+  - {name: JOF15, cmd: 15}
+  - {name: JOF16, cmd: 16}
+  - {name: JOF17, cmd: 17}
+  - {name: JOF18, cmd: 18}
+  - {name: JOF19, cmd: 19}
+  - {name: JOF20, cmd: 20}
+  - {name: JOF21, cmd: 21}

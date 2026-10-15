@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<package format="3">
+  <name>eir_loco_depth_camera</name>
+  <version>0.2.1</version>
+  <description>Low-latency AIQ11 depth transport and policy-ready DepthStack publisher.</description>
+  <maintainer email="robotics@example.com">InstinctLab deployment team</maintainer>
+  <license>Apache-2.0</license>
+
+  <buildtool_depend>ament_python</buildtool_depend>
+
+  <depend>rclpy</depend>
+  <depend>sensor_msgs</depend>
+  <depend>depth_transport_msgs</depend>
+  <exec_depend>launch</exec_depend>
+  <exec_depend>launch_ros</exec_depend>
+  <exec_depend>orbbec_camera</exec_depend>
+
+  <exec_depend>python3-numpy</exec_depend>
+  <exec_depend>python3-opencv</exec_depend>
+  <test_depend>python3-pytest</test_depend>
+
+  <export>
+    <build_type>ament_python</build_type>
+  </export>
+</package>

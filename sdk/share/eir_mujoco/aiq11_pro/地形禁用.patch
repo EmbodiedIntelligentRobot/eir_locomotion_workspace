@@ -1,0 +1,41 @@
+--- a/aiq11_pro_description/urdf/aiq11_pro.xml
++++ b/aiq11_pro_description/urdf/aiq11_pro.xml
+@@ -224,6 +224,7 @@
+
+     <!-- Shared whole-body obstacle course (same layout as eqr11).  Group 2
+          is included by the perception ray source. -->
++    <!-- Disabled for flat-ground regression; keep definitions for optional terrain tests.
+     <geom name="center1" type="box" pos="20 0 1" size="1 2 1" condim="1" conaffinity="15" group="2" />
+     <geom name="slope_up" type="box" pos="14.17 0 0.71" size="5 2 0.3" euler="0 -0.2 0" condim="1" conaffinity="15" group="2" />
+     <geom name="slope_down" type="box" pos="25.84 0 0.71" size="5 2 0.3" euler="0 0.2 0" condim="1" conaffinity="15" group="2" />
+@@ -238,14 +239,17 @@
+     <geom name="stair8" type="box" pos="16.8 10 0.30" size="0.2 2 0.30" condim="1" conaffinity="15" group="2"/>
+     <geom name="stair9" type="box" pos="17.2 10 0.20" size="0.2 2 0.20" condim="1" conaffinity="15" group="2"/>
+     <geom name="stair10" type="box" pos="17.6 10 0.10" size="0.2 2 0.10" condim="1" conaffinity="15" group="2"/>
++    -->
+
+     <!-- 仿真沙发障碍物: 155cm x 72cm x 73cm, 坐高40cm, 坐深57cm -->
++    <!--
+     <body name="sofa" pos="2.0 0 0">
+       <geom name="sofa_seat" class="obstacle" type="box" pos="-0.075 0 0.20" size="0.285 0.655 0.20" material="sofa_fabric"/>
+       <geom name="sofa_back" class="obstacle" type="box" pos="0.285 0 0.565" size="0.075 0.775 0.165" material="sofa_fabric"/>
+       <geom name="sofa_left_arm" class="obstacle" type="box" pos="0 0.715 0.365" size="0.36 0.06 0.365" material="sofa_fabric"/>
+       <geom name="sofa_right_arm" class="obstacle" type="box" pos="0 -0.715 0.365" size="0.36 0.06 0.365" material="sofa_fabric"/>
+     </body>
++    -->
+
+
+     <body name="base_link" pos="0 0 0.85">
+@@ -677,10 +681,12 @@
+     <!-- Perception depth validation fixture: visible to group-2 depth rays,
+          intentionally non-colliding so legacy controllers keep identical
+          dynamics. -->
++    <!--
+     <geom name="perception_validation_cube" type="box"
+           pos="1.0 0 0.1" size="0.1 0.1 0.1"
+           group="2" contype="0" conaffinity="0"
+           rgba="0.95 0.15 0.05 1"/>
++    -->
+   </worldbody>
+
+   <equality>

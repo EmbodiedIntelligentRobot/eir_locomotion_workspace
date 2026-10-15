@@ -1,0 +1,177 @@
+depth_camera_publisher:
+  ros__parameters:
+    # Gemini 336 (Orbbec) is the default AIQ11 camera.  Change to realsense,
+    # opencv or synthetic when validating a different source.
+    backend: orbbec
+    device: ""
+    device_index: 0
+    # Gemini 336 USB 3.2 mode verified on the control host.
+    camera_width: 640
+    camera_height: 480
+    camera_fps: 60
+    # Raw stream remains the unmodified camera image.  The second stream is
+    # policy-ready float32 data with the same header.stamp.
+    topic: /gemini336_a/depth/image_raw
+    processed_topic: /gemini336_a/depth/image_processed
+    full_processed_topic: /gemini336_a/depth/image_processed_full
+    publish_raw: true
+    publish_processed: true
+    publish_full_processed: true
+    frame_id: gemini_336_lf_optical_frame
+    clock_reset_threshold_s: 5.0
+    # Legacy masked profile: 64x40 -> 32x18; not the current 5232-D policy.
+    crop_enabled: true
+    raw_crop_enabled: false
+    processed_width: 64
+    processed_height: 40
+    full_processed_width: 64
+    full_processed_height: 40
+    # 640x400 does not support 60 Hz. Centre-crop the supported 640x480
+    # source to the previous 16:10 geometry before policy resizing.
+    source_crop_enabled: true
+    source_crop_top: 40
+    source_crop_bottom: 40
+    source_crop_left: 0
+    source_crop_right: 0
+    crop_top: 22
+    crop_bottom: 0
+    crop_left: 16
+    crop_right: 16
+    depth_scale: 0.001
+    min_distance_m: 0.0
+    max_distance_m: 2.5
+    invalid_fill_m: 2.5
+    gaussian_kernel_size: 3
+    gaussian_sigma: 1.0
+    # Ignore zero/no-return pixels in the spatial convolution to prevent
+    # unstable bright halos at real stereo-depth discontinuities.
+    invalid_blur_mode: masked
+
+depth_image_processor:
+  ros__parameters:
+    # Use this node when a vendor ROS driver already publishes the raw image.
+    input_topic: /gemini336_a/depth/image_raw
+    output_topic: /gemini336_a/depth/image_processed
+    full_output_topic: /gemini336_a/depth/image_processed_full
+    publish_full: true
+    frame_id: gemini_336_lf_optical_frame
+    input_width: 640
+    input_height: 480
+    source_crop_enabled: true
+    source_crop_top: 40
+    source_crop_bottom: 40
+    source_crop_left: 0
+    source_crop_right: 0
+    resize_width: 64
+    resize_height: 40
+    full_width: 64
+    full_height: 40
+    depth_scale: 0.001
+    min_distance_m: 0.0
+    max_distance_m: 2.5
+    invalid_fill_m: 2.5
+    crop_enabled: true
+    crop_top: 22
+    crop_bottom: 0
+    crop_left: 16
+    crop_right: 16
+    gaussian_kernel_size: 3
+    gaussian_sigma: 1.0
+    invalid_blur_mode: masked
+
+depth_image_viewer:
+  ros__parameters:
+    topic: /gemini336_a/depth/image_raw
+    show_window: true
+    display_scale: 10
+    depth_scale: 0.001       # 16UC1 millimetres -> metres
+    min_distance_m: 0.0
+    max_distance_m: 2.5
+    invalid_fill_m: 2.5     # match InstinctLab depth_clipping_behavior=max
+    max_age_ms: 100.0
+    save_dir: depth_frames
+    save_every_n: 0
+    publish_normalized: false
+    normalized_topic: /perception/depth/image_normalized
+    # Publisher already crops by default.  Set true only for raw publisher.
+    crop_enabled: false
+    crop_top: 22
+    crop_bottom: 0
+    crop_left: 16
+    crop_right: 16
+    gaussian_kernel_size: 3
+    gaussian_sigma: 1.0
+    invalid_blur_mode: masked
+
+depth_stack_publisher:
+  ros__parameters:
+    # Legacy single-frame masked contract; choose pro_parkour_depth.yaml for current PRO.
+    # Consume the processor's 32FC1 policy image.  No second crop, Gaussian,
+    # unit conversion or normalization is allowed in this node.
+    input_topic: /gemini336_a/depth/image_processed
+    output_topic: /perception/depth_stack
+    frame_id: gemini_336_lf_optical_frame
+    depth_semantics: image_plane
+    preprocessing_version: depth_v1_masked
+    input_width: 32
+    input_height: 18
+    output_width: 32
+    output_height: 18
+    depth_scale: 0.001
+    min_distance_m: 0.0
+    max_distance_m: 2.5
+    invalid_fill_m: 2.5
+    # Already normalized 18x32 input: validation only, no second processing.
+    crop_enabled: false
+    crop_top: 22
+    crop_bottom: 0
+    crop_left: 16
+    crop_right: 16
+    gaussian_kernel_size: 3
+    gaussian_sigma: 1.0
+    invalid_blur_mode: masked
+    # Legacy single-frame contract.
+    frame_count: 1
+    history_length: 1
+    history_skip: 1
+    input_is_normalized: true
+    max_input_age_ms: 100.0
+
+depth_near_range_test:
+  ros__parameters:
+    # Subscribe only to the untouched camera stream.  Do not use either
+    # processed topic for the physical near-range characterization.
+    topic: /gemini336_a/depth/image_raw
+    test_mode: sweep
+    duration_s: 10.0
+    distances_cm: [50.0, 40.0, 30.0, 28.0, 25.0, 20.0, 15.0, 10.0]
+    material: matte_board
+    interactive: true
+    output_dir: depth_near_range_results
+    session_name: ""
+    depth_scale: 0.001
+    # Classify both observed no-return/saturated sentinels for statistics.
+    # The recorder never rewrites either value in raw_frames.npz.
+    integer_invalid_values: [0, 65535]
+    roi_height_fraction: 0.2
+    roi_width_fraction: 0.2
+    background_distance_m: 1.0
+    background_tolerance_m: 0.15
+    background_jump_ratio: 0.5
+    preview_min_m: 0.0
+    preview_max_m: 1.2
+    wait_for_topic_s: 15.0
+    expected_fps: 60.0
+    camera_model: Orbbec Gemini 336
+    driver_backend: orbbec_camera 2.8.6 / OrbbecSDK 2.8.6
+    driver_profile: 640x480@60Hz Y16
+    # The test launch explicitly disables the driver's noise-removal, spatial,
+    # temporal, threshold, decimation and other post-processing filters.
+    sdk_filtering: all orbbec_camera post-processing filters explicitly disabled
+    hole_filling_enabled: false
+    device_defaults_modified: false
+    show_window: true
+    display_scale: 1
+    window_name: Gemini336 near-range sweep
+    reversal_fraction: 0.5
+    reliable_valid_ratio: 0.8

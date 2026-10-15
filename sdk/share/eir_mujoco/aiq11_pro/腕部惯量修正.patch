@@ -1,0 +1,44 @@
+diff --git a/aiq11_pro_description/urdf/aiq11_pro.xml b/aiq11_pro_description/urdf/aiq11_pro.xml
+index b4af1f3..0920941 100644
+--- a/aiq11_pro_description/urdf/aiq11_pro.xml
++++ b/aiq11_pro_description/urdf/aiq11_pro.xml
+@@ -343,7 +343,8 @@
+                       <geom size="0.035 0.0175" pos="0 0 -0.038" type="cylinder" rgba="0.866667 0.909804 1 0"/>
+                       <body name="l_arm_l51" pos="0 0.0145 -0.0355">
+                         <inertial pos="-0.000190388 0.00200572 0" quat="0.503271 0.503271 0.496707 0.496707" mass="0.00464102" diaginertia="6.84801e-07 4.69148e-07 2.29349e-07"/>
+-                        <joint name="l_arm_51" pos="0 0 0" axis="0 1 0" range="-0.785 0.785" actuatorfrcrange="-12 12" class='fake_joint_param'/>
++                        <!-- Wrist motor drives arm_51: place reflected rotor inertia here. -->
++                        <joint name="l_arm_51" pos="0 0 0" axis="0 1 0" range="-0.785 0.785" actuatorfrcrange="-12 12" class='fake_joint_param' armature="0.00552"/>
+                         <geom type="mesh" contype="0" conaffinity="0" group="1" density="0" rgba="0.866667 0.909804 1 1" mesh="l_arm_l51_simplified"/>
+                         <body name="l_arm_l52" pos="-0.015 0.008 0">
+                           <inertial pos="0 0.00130653 -0.0274997" quat="0.706797 0.0209293 -0.0209293 0.706797" mass="0.00741027" diaginertia="3.65852e-06 3.61466e-06 7.79256e-08"/>
+@@ -353,7 +354,8 @@
+                       </body>
+                       <body name="l_arm_l6" pos="0 0 -0.0905">
+                         <inertial pos="0.00512501 -8.08628e-05 -5.46316e-05" quat="0.700742 0.713216 0.00355062 -0.0164786" mass="0.198883" diaginertia="6.67823e-05 6.36508e-05 5.99448e-05"/>
+-                        <joint name="l_arm_6" pos="0 0 0" axis="0 1 0" range="-0.785 0.785" actuatorfrcrange="-12 12" class='2806-P2-36_arm-6'/>
++                        <!-- Passive output of the linkage; rotor inertia is on arm_51. -->
++                        <joint name="l_arm_6" pos="0 0 0" axis="0 1 0" range="-0.785 0.785" actuatorfrcrange="-12 12" class='2806-P2-36_arm-6' armature="0"/>
+                         <geom type="mesh" contype="0" conaffinity="0" group="1" density="0" rgba="0.866667 0.909804 1 1" mesh="l_arm_l6_simplified"/>
+                         <geom size="0.023 0.0225" quat="0.707388 0 0.706825 0" type="cylinder" rgba="0.866667 0.909804 1 0"/>
+                         <body name="l_arm_l7">
+@@ -440,7 +442,8 @@
+                       <geom size="0.035 0.0175" pos="0 0 -0.038" type="cylinder" rgba="0.866667 0.909804 1 0"/>
+                       <body name="r_arm_l51" pos="0 -0.0145 -0.0355">
+                         <inertial pos="0.00019039 -0.0020057 0" quat="0.503271 0.503271 0.496707 0.496707" mass="0.004641" diaginertia="6.84799e-07 4.6915e-07 2.29351e-07"/>
+-                        <joint name="r_arm_51" pos="0 0 0" axis="0 1 0" range="-0.785 0.785" actuatorfrcrange="-12 12" class='fake_joint_param'/>
++                        <!-- Wrist motor drives arm_51: place reflected rotor inertia here. -->
++                        <joint name="r_arm_51" pos="0 0 0" axis="0 1 0" range="-0.785 0.785" actuatorfrcrange="-12 12" class='fake_joint_param' armature="0.00552"/>
+                         <geom type="mesh" contype="0" conaffinity="0" group="1" density="0" rgba="0.86667 0.9098 1 1" mesh="r_arm_l51_simplified"/>
+                         <body name="r_arm_l52" pos="0.015 -0.008 0">
+                           <inertial pos="0 -0.0013065 -0.0275" quat="0.706797 -0.0209296 0.0209296 0.706797" mass="0.0074103" diaginertia="3.65854e-06 3.6147e-06 7.79252e-08"/>
+@@ -450,7 +453,8 @@
+                       </body>
+                       <body name="r_arm_l6" pos="0 0 -0.0905">
+                         <inertial pos="-0.00512501 8.08628e-05 -5.46316e-05" quat="0.713216 0.700742 -0.0164786 0.00355062" mass="0.198883" diaginertia="6.67823e-05 6.36508e-05 5.99448e-05"/>
+-                        <joint name="r_arm_6" pos="0 0 0" axis="0 1 0" range="-0.785 0.785" actuatorfrcrange="-12 12" class='2806-P2-36_arm-6'/>
++                        <!-- Passive output of the linkage; rotor inertia is on arm_51. -->
++                        <joint name="r_arm_6" pos="0 0 0" axis="0 1 0" range="-0.785 0.785" actuatorfrcrange="-12 12" class='2806-P2-36_arm-6' armature="0"/>
+                         <geom type="mesh" contype="0" conaffinity="0" group="1" density="0" rgba="0.866667 0.909804 1 1" mesh="r_arm_l6_simplified"/>
+                         <geom size="0.023 0.02" quat="0.707388 0 0.706825 0" type="cylinder" rgba="0.866667 0.909804 1 0"/>
+                         <body name="r_arm_l7">
